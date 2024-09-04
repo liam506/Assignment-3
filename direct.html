@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>
+            React Import External JSON
+        </title>
+        <!--Loading jquesry to read JSON file-->
+        <script src ="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <!--Loading react -->
+        <script src="https://unpkg.com/react/umd/react.development.js" crossorigin=""></script>
+        <script src="https://unpkg.com/react-dom/umd/react-dom.development.js" crossorigin=""></script>
+        <!--loading babel converts JSX to javascript-->
+        <script src="https://unpkg.com/@babel/standalone@7.22.10/babel.min.js"></script>
+    </head>
+
+    <body>
+        <h1>Test Page for Assignment 3</h1>
+
+        <div id="myApp"></div>
+        <!--load a custom script with react components-->
+        <script type="text/babel">
+            "use strict";
+
+            //define react using JSX
+            function ProjectList(props){
+                console.log(props);
+
+                //return component output
+                return(
+                    <div>
+                        <ol>
+                            {
+                                props.list.map(
+                                    //copy array val
+                                    (item,index) => (
+                                        <li key={index}>
+                                            <a href ={item.link}>
+                                                {item.firstname}
+                                            </a>
+                                        </li>             
+                                    )
+                                )
+                            }
+                        </ol>
+                    </div>
+                )
+            }
+
+            //using jquery to load JSON to server
+            $.getJSON(
+               'x',
+                function(jsonFromJquery){
+                    //creating a root react element
+                    const myRoot = ReactDOM.createRoot(document.getElementById('myApp'));
+
+                    myRoot.render(
+                        <ProjectList list ={jsonFromJquery} />
+                    );
+                } 
+        );
+        </script>
+    </body>
+</html>
